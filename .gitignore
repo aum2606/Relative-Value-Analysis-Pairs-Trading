@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+data/raw/*.csv
+
+venv/
+
 # Distribution / packaging
 .Python
 build/
