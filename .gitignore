@@ -8,6 +8,10 @@ __pycache__/
 
 data/raw/*.csv
 data/processed/*.csv
+data/processed/signals/*.csv
+data/processed/backtest_results/*.csv
+
+
 
 venv/
 
