@@ -128,8 +128,8 @@ class CorrelationAnalysis:
             raise CustomException("Error during correlation calculation", sys)
 
     def identify_highly_correlated_pairs(self, 
-                                        correlation_matrix: pd.DataFrame, 
-                                        threshold: float = None) -> List[Tuple[str, str, float]]:
+                                correlation_matrix: pd.DataFrame, 
+                                threshold: float = None) -> List[Tuple[str, str, float]]:
         """
         Identify pairs of tickers with correlation above a threshold.
         
@@ -137,7 +137,7 @@ class CorrelationAnalysis:
             correlation_matrix (pd.DataFrame): Correlation matrix between tickers
             threshold (float, optional): Minimum correlation threshold. 
                                         If None, uses the threshold from config.
-                                   
+                                
         Returns:
             List[Tuple[str, str, float]]: List of ticker pairs with their correlation values
             
@@ -145,20 +145,27 @@ class CorrelationAnalysis:
             CustomException: If an error occurs during pair identification
         """
         try:
-            #set threshold
+            # Set threshold
             threshold = threshold if threshold is not None else self.config.min_correlation_threshold
             logger.info(f"Indentifying ticker pairs with correlation above {threshold}")
             
-            #get the ticker pairs with correlation above threshold
+            # Get the ticker pairs with correlation above threshold
             correlation_pairs = []
             
-            #get tge correlation values from the upper triangle
-            for i,ticker1 in enumerate(correlation_matrix.index):
-                for j,ticker2 in enumerate(correlation_matrix.columns):
-                    if j>i:
-                        correlation = correlation_matrix.iloc[i,j]
+            # Get the correlation values from the upper triangle
+            for i, ticker1 in enumerate(correlation_matrix.index):
+                for j, ticker2 in enumerate(correlation_matrix.columns):
+                    if j > i:  # Upper triangle only
+                        correlation = correlation_matrix.iloc[i, j]
                         if correlation > threshold:
-                            correlation_pairs
+                            correlation_pairs.append((ticker1, ticker2, correlation))
+            
+            # Sort by correlation (highest first)
+            correlation_pairs.sort(key=lambda x: x[2], reverse=True)
+            
+            logger.info(f"Identified {len(correlation_pairs)} ticker pairs with correlation above {threshold}")
+            return correlation_pairs
+            
         except Exception as e:
             logger.error(f"Exception occurred during pair identification: {str(e)}")
             raise CustomException("Error during pair identification", sys)

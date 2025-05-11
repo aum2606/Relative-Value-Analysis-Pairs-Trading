@@ -1,0 +1,25 @@
+PAIRS TRADING STRATEGY REPORT
+=============================
+
+Date: 2025-05-11 18:59:52
+
+PERFORMANCE SUMMARY
+-----------------
+Initial Capital: $100000.00
+Final Portfolio Value: $84713.77
+Total Return: -15.29%
+Annualized Return: -2.94%
+Sharpe Ratio: -0.44
+Sortino Ratio: -0.01
+Maximum Drawdown: -15.29%
+Win Rate: 48.08%
+Profit Factor: 1.02
+
+TRADING PAIRS
+------------
+- AAPL / PG
+- IBKR / TMUS
+- PG / SPY
+
+STRATEGY PARAMETERS
+------------------
